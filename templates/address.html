@@ -1,0 +1,46 @@
+<h1 id="page-h1">IPv4 Address Analyzer</h1>
+
+<div layout="row">
+	<md-input-container class="md-block" flex="30">
+		<label>IP address</label>
+		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputs.ipAddress">
+	</md-input-container>
+	<md-input-container class="md-block" flex="30">
+		<label>Network mask</label>
+		<input md-no-asterisk name="networkMask" ng-model="addressInputs.networkMask" disabled="disabled">
+	</md-input-container>
+	<md-input-container flex="15">
+      <label>Prefix length</label>
+      <md-select name="type" ng-model="addressInputs.prefixLength" required>
+        	<md-option ng-repeat="pl in prefixesLength" value="{{pl}}">{{pl}}</md-option>
+      </md-select>
+    </md-input-container>
+</div>
+
+<div layout="row" flex="100">
+	<md-button md-no-ink class="md-raised md-primary" ng-click="calculate();">Calculate</md-button>
+</div>
+
+<h3>Output</h3>
+<table>
+	<tr ng-repeat="item in outputTable">
+		<td>{{item.title}}</td>
+		<td style="padding-left: 30px;">{{item.value}}</td>
+	</tr>
+</table>
+<br>
+<h3>Binary output</h3>
+<table>
+	<tr ng-repeat="item in outputTableBinary">
+		<td>{{item.title}}</td>
+		<td style="padding-left: 62px;">{{item.value}}</td>
+	</tr>
+</table>
+<br>
+<h3>Hexadecimal output</h3>
+<table>
+	<tr ng-repeat="item in outputTableHexa">
+		<td>{{item.title}}</td>
+		<td style="padding-left: 62px;">{{item.value}}</td>
+	</tr>
+</table>
