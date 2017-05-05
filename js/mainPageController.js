@@ -31,11 +31,12 @@ app.factory('Converting', function(){
 
 });
 
-app.controller('mainPage', ['$scope', '$mdSidenav', 'Converting', function($scope, $mdSidenav, Converting){
-	
-	$scope.toggleSidenav = function(menuId) {
-    	$mdSidenav(menuId).toggle();
-  	};
+app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', function($scope, $mdSidenav, $mdMedia, Converting){
+
+	$scope.toggleSideNav = function() {
+        if(!$mdMedia('gt-md'))
+            $mdSidenav('left').toggle();
+    };
 
   	$scope.titleName = "Internet Protocol Calculator";
 	$scope.menu = [
@@ -131,6 +132,12 @@ app.controller('mainPage', ['$scope', '$mdSidenav', 'Converting', function($scop
 		networkMask: "",
 		prefixLength: ""
 	};
+
+	$scope.addressInputsRange = {
+		ipAddressFrom: "",
+		ipAddressTo: ""
+	};
+
 	$scope.prefixesLength = [];
 	for (var i = 1; i <= 30; i++){
 		$scope.prefixesLength.push(i);
@@ -166,6 +173,8 @@ app.controller('mainPage', ['$scope', '$mdSidenav', 'Converting', function($scop
 				}
 			}
 		}
+		// getMaskRange
+
 		for (var i = 0; i < 4; i++){
 			if (subnetMaskString[i] == "")
 				subnetMaskString[i] = "00000000";
@@ -216,6 +225,12 @@ app.controller('mainPage', ['$scope', '$mdSidenav', 'Converting', function($scop
 		$scope.outputTableHexa[1].value = (Converting.decToHex(subnetMaskString[0])+" . "+Converting.decToHex(subnetMaskString[1])+" . "+Converting.decToHex(subnetMaskString[2])+" . "+Converting.decToHex(subnetMaskString[3])).toUpperCase();
 		$scope.outputTableHexa[2].value = (Converting.decToHex(outputIpAddress[0])+" . "+Converting.decToHex(outputIpAddress[1])+" . "+Converting.decToHex(outputIpAddress[2])+" . "+Converting.decToHex(outputIpAddress[3])).toUpperCase();
 		$scope.outputTableHexa[3].value = (Converting.decToHex(broadcastIpAddress[0])+" . "+Converting.decToHex(broadcastIpAddress[1])+" . "+Converting.decToHex(broadcastIpAddress[2])+" . "+Converting.decToHex(broadcastIpAddress[3])).toUpperCase();
+	}
+
+	$scope.rangeData = [];
+	$scope.calculateRange = function(){
+		$scope.rangeData = IpSubnetCalculator.calculate( $scope.addressInputsRange.ipAddressFrom, $scope.addressInputsRange.ipAddressTo );
+		console.log($scope.rangeData );
 	}
 	
 }]).config(function($routeProvider, $routeProvider, $locationProvider) {

@@ -1,1 +1,23 @@
 <h1 id="page-h1">IPv4 Subnet Calculator</h1>
+
+<div layout="row">
+	<md-input-container class="md-block" flex="30">
+		<label>IP address from</label>
+		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRange.ipAddressFrom">
+	</md-input-container>
+	<md-input-container class="md-block" flex="30">
+		<label>IP address to</label>
+		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRange.ipAddressTo">
+	</md-input-container>
+</div>
+
+<div layout="row" flex="100">
+	<md-button md-no-ink class="md-raised md-primary" ng-click="calculateRange();">Calculate</md-button>
+</div>
+
+<table>
+	<tr ng-repeat="item in rangeData">
+		<td>{{item.ipLowStr + "/" + item.prefixSize }}</td>
+		<td style="padding-left: 20px">{{item.prefixMaskStr}}</td>
+	</tr>
+</table>

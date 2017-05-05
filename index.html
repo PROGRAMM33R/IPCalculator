@@ -20,15 +20,19 @@
 
     <md-toolbar layout="row">
       <div class="md-toolbar-tools">
-        <h1>{{titleName}}</h1>
+        <h1>
+          <md-button class="md-icon-button" ng-click="toggleSideNav()" hide-gt-md>
+            <ng-md-icon icon="reorder"></ng-md-icon>
+          </md-button>{{titleName}}
+        </h1>
       </div>
     </md-toolbar>
     <div layout="row" flex>
-        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')">
+        <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
           <md-list>
             <md-list-item ng-repeat="item in menu">
-              <a href="{{item.link}}">
+              <a href="{{item.link}}" ng-click="toggleSideNav();">
                 <div md-ink-ripple layout="row" layout-align="start center">
                   <div class="inset">
                     <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
@@ -43,7 +47,6 @@
         </md-sidenav>
         <div layout="column" flex id="content">
             <md-content layout="column" flex class="md-padding">
-              
               <div>
                 <div ng-view></div>
               </div>
@@ -59,6 +62,18 @@
     <script src="./bower_components/angular-material/angular-material.js"></script>
     <script src="./bower_components/angular-material-icons/angular-material-icons.min.js"></script>
 
+    <script src="./bower_components/ip-subnet-calculator/lib/ip-subnet-calculator.js"></script>
+
     <script src="./js/mainPageController.js"></script>
+
+    <script>
+
+      console.log(IpSubnetCalculator.calculate( '192.168.0.0', '192.168.0.9' ));
+
+      console.log(IpSubnetCalculator.calculateSubnetMask( '192.168.0.0', 21 ));
+
+      console.log(IpSubnetCalculator.calculateSubnets( '192.168.0.0', '192.168.2.0', 26 ));
+
+    </script>
     
 </html>
