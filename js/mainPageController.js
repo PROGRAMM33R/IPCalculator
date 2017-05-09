@@ -138,6 +138,12 @@ app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', fu
 		ipAddressTo: ""
 	};
 
+	$scope.addressInputsRangeSubnet = {
+		ipAddressFrom: "",
+		ipAddressTo: "",
+		prefix: ""
+	};
+
 	$scope.prefixesLength = [];
 	for (var i = 1; i <= 30; i++){
 		$scope.prefixesLength.push(i);
@@ -230,7 +236,13 @@ app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', fu
 	$scope.rangeData = [];
 	$scope.calculateRange = function(){
 		$scope.rangeData = IpSubnetCalculator.calculate( $scope.addressInputsRange.ipAddressFrom, $scope.addressInputsRange.ipAddressTo );
-		console.log($scope.rangeData );
+		//console.log($scope.rangeData );
+	}
+
+	$scope.rangeDataSubnet = [];
+	$scope.calculateRangeSubnet = function(){
+		$scope.rangeDataSubnet = IpSubnetCalculator.calculateSubnets( $scope.addressInputsRangeSubnet.ipAddressFrom, $scope.addressInputsRangeSubnet.ipAddressTo, $scope.addressInputsRangeSubnet.prefix );
+		//console.log($scope.rangeDataSubnet );
 	}
 	
 }]).config(function($routeProvider, $routeProvider, $locationProvider) {

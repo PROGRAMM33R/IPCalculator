@@ -1,22 +1,28 @@
 <h1 id="page-h1">IPv4 Subnet Calculator</h1>
 
 <div layout="row">
-	<md-input-container class="md-block" flex="30">
+	<md-input-container class="md-block" flex="20">
 		<label>IP address from</label>
-		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRange.ipAddressFrom">
+		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRangeSubnet.ipAddressFrom">
 	</md-input-container>
-	<md-input-container class="md-block" flex="30">
+	<md-input-container class="md-block" flex="20">
 		<label>IP address to</label>
-		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRange.ipAddressTo">
+		<input md-maxlength="15" required md-no-asterisk name="ipAddress" ng-model="addressInputsRangeSubnet.ipAddressTo">
 	</md-input-container>
+	<md-input-container flex="15">
+      <label>Subnetted using prefixlength:</label>
+      <md-select name="type" ng-model="addressInputsRangeSubnet.prefix" required>
+        	<md-option ng-repeat="pl in prefixesLength" value="{{pl}}">{{pl}}</md-option>
+      </md-select>
+    </md-input-container>
 </div>
 
 <div layout="row" flex="100">
-	<md-button md-no-ink class="md-raised md-primary" ng-click="calculateRange();">Calculate</md-button>
+	<md-button md-no-ink class="md-raised md-primary" ng-click="calculateRangeSubnet();">Calculate</md-button>
 </div>
 
 <table>
-	<tr ng-repeat="item in rangeData">
+	<tr ng-repeat="item in rangeDataSubnet">
 		<td>{{item.ipLowStr + "/" + item.prefixSize }}</td>
 		<td style="padding-left: 20px">{{item.prefixMaskStr}}</td>
 	</tr>
