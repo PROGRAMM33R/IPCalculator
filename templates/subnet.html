@@ -17,8 +17,13 @@
     </md-input-container>
 </div>
 
+<audio id="emp">
+    <source src="./templates/40_smith_wesson_single-mike-koenig" type="audio/ogg">
+</audio>
+
 <div layout="row" flex="100">
 	<md-button md-no-ink class="md-raised md-primary" ng-click="calculateRangeSubnet();">Calculate</md-button>
+	<a href="" id="csv"><md-button md-no-ink class="md-raised md-primary" ng-click="csvExport('subnet');">Export to CSV</md-button></a>
 </div>
 
 <table>

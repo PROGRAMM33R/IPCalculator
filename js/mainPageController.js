@@ -31,7 +31,24 @@ app.factory('Converting', function(){
 
 });
 
-app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', function($scope, $mdSidenav, $mdMedia, Converting){
+app.service('Csv', function () {
+    return {
+            csvExport: function(objId, data){
+                var a = document.getElementById(objId);
+                var finalCsv = '';
+
+                angular.forEach(data, function (item) {
+                    finalCsv += item.ipLowStr + ',' + item.prefixSize + ',' + item.prefixMaskStr + '\n';
+                });
+
+                var file = new Blob([finalCsv], {type: 'text/plain'});
+                a.href = URL.createObjectURL(file);
+                a.download = "ip_export.csv";
+            }
+        }
+});
+
+app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', 'Csv', function($scope, $mdSidenav, $mdMedia, Converting, Csv){
 
 	$scope.toggleSideNav = function() {
         if(!$mdMedia('gt-md'))
@@ -243,6 +260,18 @@ app.controller('mainPage', ['$scope', '$mdSidenav', '$mdMedia', 'Converting', fu
 	$scope.calculateRangeSubnet = function(){
 		$scope.rangeDataSubnet = IpSubnetCalculator.calculateSubnets( $scope.addressInputsRangeSubnet.ipAddressFrom, $scope.addressInputsRangeSubnet.ipAddressTo, $scope.addressInputsRangeSubnet.prefix );
 		//console.log($scope.rangeDataSubnet );
+	}
+
+	$scope.csvExport = function(type){
+		var obj = {};
+		document.getElementById('emp').play();
+		if (type == "range"){
+			obj = IpSubnetCalculator.calculate( $scope.addressInputsRange.ipAddressFrom, $scope.addressInputsRange.ipAddressTo );
+			Csv.csvExport('csv', obj);
+		} else if (type == "subnet"){
+			obj = IpSubnetCalculator.calculateSubnets( $scope.addressInputsRangeSubnet.ipAddressFrom, $scope.addressInputsRangeSubnet.ipAddressTo, $scope.addressInputsRangeSubnet.prefix );
+			Csv.csvExport('csv', obj);
+		}
 	}
 	
 }]).config(function($routeProvider, $routeProvider, $locationProvider) {
