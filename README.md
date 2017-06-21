@@ -1,10 +1,10 @@
-## IPCalculator
+# IPCalculator
 
 Project into subject Design of Applications for Mobile Devices I
 
 VŠB-TUO FEI 2017
 
-# Used technology
+## Used technology
 
 Angular JS
 
