@@ -20,4 +20,4 @@ In export, the controller play Shoot sound (requirements for project - for max. 
 
 ## Screens
 
-<a href="url"><img src="http://adam-lasak.xf.cz/w/github-images/IPCalculator-screenshot.png" width="900" ></a>
+<a href="url"><img src="http://adam-lasak.xf.cz/w/github-images/IPCalculator-screenshot.png" width="800" ></a>
